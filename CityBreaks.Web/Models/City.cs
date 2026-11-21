@@ -10,6 +10,8 @@
 
         public Country Country { get; set; } = null!;
 
+        public List<Property> Properties { get; set; } = new();
+
     }
 
 
