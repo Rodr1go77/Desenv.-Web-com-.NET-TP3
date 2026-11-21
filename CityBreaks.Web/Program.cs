@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using CityBreaks.Web.Data;
+using CityBreaks.Web.Services;
 
 namespace CityBreaks.Web
 {
@@ -12,15 +13,20 @@ namespace CityBreaks.Web
             // Add services to the container.
             builder.Services.AddRazorPages();
 
+            //Registro do Servico
+            builder.Services.AddScoped<ICityService, CityService>();
 
             //Registro do contexto e conexao
-            
+
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
             
             builder.Services.AddDbContext<CityBreaksContext>(options =>
             options.UseSqlite(connectionString));
 
             var app = builder.Build();
+
+
+
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())

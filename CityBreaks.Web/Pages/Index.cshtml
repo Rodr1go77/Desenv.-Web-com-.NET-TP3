@@ -1,10 +1,29 @@
 ﻿@page
 @model IndexModel
 @{
-    ViewData["Title"] = "Home page";
+	ViewData["Title"] = "Home page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div>
+	<h1>Lista de Cidades e Hotéis</h1>
+
+	<div class="divprincipal">
+
+		@foreach (var city in Model.Cities)
+		{
+			<div class="bloco-item">
+				<p class="mb-0"><strong>Nome da cidade: </strong> @city.Name - <strong> País: </strong> @city.Country?.CountryName</p>
+				@foreach (var nomeHotel in city.Properties)
+				{
+					<p class= "mb-0">
+						ID: @nomeHotel.Id <br /> Nome do hotel: @nomeHotel.Name <br />
+						Valor Diária: @nomeHotel.PricePerNight.ToString("C")
+					</p>
+
+				}
+
+			</div>
+
+		}
+	</div>
 </div>
