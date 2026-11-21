@@ -1,0 +1,32 @@
+﻿@page "{name}"
+@model CityBreaks.Web.Pages.CityDetailsModel
+@{
+	ViewData["Title"] = "City Details";
+}
+
+
+@if (Model.City is not null)
+{
+	<h1>
+		<span>Cidade: @Model.City.Name</span>
+		<span class="separador-pais">País: @Model.City.Country?.CountryName</span>
+	</h1>
+
+	<h4>Hotéis</h4>
+
+	@foreach (var hotel in Model.City.Properties )
+	{
+		<div class="bloco-item">
+		<p class="mb-0">
+			ID: @hotel.Id <br /> Nome do hotel: @hotel.Name <br />
+			Valor Diária: @hotel.PricePerNight.ToString("C")
+		</p>
+		</div>
+
+	}
+
+}
+else
+{
+	<p>Cidade não encontrada.</p>
+}

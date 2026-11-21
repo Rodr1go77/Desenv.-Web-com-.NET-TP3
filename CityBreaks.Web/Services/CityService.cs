@@ -10,7 +10,7 @@ namespace CityBreaks.Web.Services
         private readonly CityBreaksContext _context;
 
 
-        public CityService (CityBreaksContext context) 
+        public CityService(CityBreaksContext context)
         {
             _context = context;
         }
@@ -24,6 +24,24 @@ namespace CityBreaks.Web.Services
                 .ToListAsync();
 
         }
+
+        public async Task<City?> GetByNameAsync(string name)
+        {
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                return null;
+            }
+
+            return await _context.Cities
+                .Include(c => c.Properties)
+                .Include(c => c.Country)
+                .FirstOrDefaultAsync(c => EF.Functions.Collate(c.Name, "NOCASE") == name);
+
+
+        }
+
+
+
 
     }
 }
