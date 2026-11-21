@@ -36,6 +36,32 @@ namespace CityBreaks.Web.Migrations
                     b.HasIndex("CountryId");
 
                     b.ToTable("Cities");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CountryId = 1,
+                            Name = "Brasília"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CountryId = 2,
+                            Name = "Toronto"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CountryId = 1,
+                            Name = "Salvador"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CountryId = 2,
+                            Name = "Ottawa"
+                        });
                 });
 
             modelBuilder.Entity("CityBreaks.Web.Models.Country", b =>
@@ -57,6 +83,20 @@ namespace CityBreaks.Web.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Countries");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CountryCode = "",
+                            CountryName = "Brasil"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CountryCode = "",
+                            CountryName = "Canadá"
+                        });
                 });
 
             modelBuilder.Entity("CityBreaks.Web.Models.Property", b =>
@@ -82,12 +122,42 @@ namespace CityBreaks.Web.Migrations
                     b.HasIndex("CityId");
 
                     b.ToTable("Properties");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CityId = 1,
+                            Name = "Hotel Nacional",
+                            PricePerNight = 500m
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CityId = 2,
+                            Name = "Union Hotel",
+                            PricePerNight = 1000m
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CityId = 3,
+                            Name = "Sotero Hotel",
+                            PricePerNight = 500m
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CityId = 4,
+                            Name = "Minto 185",
+                            PricePerNight = 700m
+                        });
                 });
 
             modelBuilder.Entity("CityBreaks.Web.Models.City", b =>
                 {
                     b.HasOne("CityBreaks.Web.Models.Country", "Country")
-                        .WithMany("Cities")
+                        .WithMany()
                         .HasForeignKey("CountryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -109,11 +179,6 @@ namespace CityBreaks.Web.Migrations
             modelBuilder.Entity("CityBreaks.Web.Models.City", b =>
                 {
                     b.Navigation("Properties");
-                });
-
-            modelBuilder.Entity("CityBreaks.Web.Models.Country", b =>
-                {
-                    b.Navigation("Cities");
                 });
 #pragma warning restore 612, 618
         }
