@@ -1,0 +1,60 @@
+﻿@page
+@model CreatePropertyModel
+@{
+
+	ViewData["Title"] = "Create Property";
+
+}
+
+<h1> Cadastrar Nova Hospedagem</h1>
+
+<form method="post">
+
+    <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+    <div class="mb-3">
+        <label asp-for="Input.Nome" class="form-label">Nome do Estabelecimento:</label>
+        <input asp-for="Input.Nome" class="form-control" />
+        <span asp-validation-for="Input.Nome" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Input.ValorDiaria" class="form-label">Valor da diária:</label>
+        <input asp-for="Input.ValorDiaria" class="form-control" />
+        <span asp-validation-for="Input.ValorDiaria" class="text-danger"></span>
+    </div>
+
+
+    <div class="mb-3">
+        <label asp-for="Input.CityId" class="form-label">Cidade</label>
+        <select asp-for="Input.CityId"
+                asp-items="Model.CitiesSelectList"
+                class="form-select">
+            <option value="">-- Selecione uma cidade --</option>
+        </select>
+            <span asp-validation-for="Input.CityId" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Salvar</button>
+
+</form>
+
+@if (!string.IsNullOrWhiteSpace(Model.MensagemConfirmacao))
+{
+    <div id="alerta-sucesso" class="alert alert-success mt-3">
+        @Model.MensagemConfirmacao — redirecionando para a lista...
+    </div>
+}
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+
+    @if (!string.IsNullOrWhiteSpace(Model.MensagemConfirmacao))
+    {
+        <script>
+            setTimeout(function () {
+                window.location.href = '@Url.Page("/Index")';
+            }, 2000);
+        </script>
+    }
+}

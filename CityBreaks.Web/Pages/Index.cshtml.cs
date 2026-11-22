@@ -1,6 +1,5 @@
 using CityBreaks.Web.Models;
 using CityBreaks.Web.Services;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace CityBreaks.Web.Pages
