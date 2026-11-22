@@ -1,0 +1,46 @@
+﻿@page "{id:int}"
+@model CityBreaks.Web.Pages.EditPropertyModel
+@{
+
+	ViewData["Title"] = "Edit Page";
+
+}
+
+<form method="post">
+
+    <div asp-validation-summary="All" class="text-danger mb-3"></div>
+
+	<input type="hidden" asp-for="Property.Id" />
+
+    <div class="mb-3">
+        <label asp-for="Property.Name" class="form-label">Nome do Estabelecimento:</label>
+        <input asp-for="Property.Name" class="form-control" />
+        <span asp-validation-for="Property.Name" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Property.PricePerNight" class="form-label">Valor Diária:</label>
+        <input asp-for="Property.PricePerNight" class="form-control" />
+        <span asp-validation-for="Property.PricePerNight" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Property.CityId" class="form-label">Cidade:</label>
+        <select asp-for="Property.CityId"
+                asp-items="Model.CitiesSelectList"
+                class="form-select">
+            <option value="">-- Selecione uma cidade --</option>
+        </select>
+        <span asp-validation-for="Property.CityId" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Salvar alterações</button>
+
+</form>
+
+@if (!string.IsNullOrWhiteSpace(Model.MensagemConfirmacao))
+{
+    <div id="alerta-sucesso" class="alert alert-success mt-3">
+        @Model.MensagemConfirmacao — redirecionando para a lista...
+    </div>
+}
