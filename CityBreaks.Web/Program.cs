@@ -13,8 +13,9 @@ namespace CityBreaks.Web
             // Add services to the container.
             builder.Services.AddRazorPages();
 
-            //Registro do Servico
+            //Registro dos Servicos
             builder.Services.AddScoped<ICityService, CityService>();
+            builder.Services.AddScoped<PropertyService>();
 
             //Registro do contexto e conexao
 

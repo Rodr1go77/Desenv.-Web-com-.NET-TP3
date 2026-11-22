@@ -1,0 +1,83 @@
+﻿@page
+@model CityBreaks.Web.Pages.FilterPropertiesModel
+@{
+	ViewData["Title"] = "Filtrar Hotéis";
+}
+
+
+<h2>Consulta com filtros dinâmicos</h2>
+
+
+    <form method="get" class="row g-3 mb-4">
+        <div class="col-md-3">
+            <label asp-for="MinPrice" class="form-label">Diária Mínima:</label>
+            <input asp-for="MinPrice" class="form-control" />
+        </div>
+        <div class="col-md-3">
+            <label asp-for="MaxPrice" class="form-label">Diária Máxima:</label>
+            <input asp-for="MaxPrice" class="form-control" />
+        </div>
+        <div class="col-md-3">
+            <label asp-for="CityName" class="form-label">Cidade:</label>
+            <input asp-for="CityName" class="form-control" />
+        </div>
+        <div class="col-md-3">
+            <label asp-for="PropertyName" class="form-label">Nome do estabelecimento:</label>
+            <input asp-for="PropertyName" class="form-control" />
+        </div>
+        <div class="col-12">
+            <button type="submit" class="btn btn-primary">Filtrar</button>
+        <a asp-page="/FilterProperties" class="btn btn-outline-secondary">Limpar filtro</a>
+        </div>
+
+</form>
+
+<div class="mb-3">
+    <strong>Filtros aplicados:</strong>
+    @if (Model.MinPrice.HasValue)
+    {
+        <span class="badge bg-secondary">Mín: @Model.MinPrice</span>
+    }
+    @if (Model.MaxPrice.HasValue)
+    {
+        <span class="badge bg-secondary">Máx: @Model.MaxPrice</span>
+    }
+    @if (!string.IsNullOrWhiteSpace(Model.CityName))
+    {
+        <span class="badge bg-secondary">Cidade: @Model.CityName</span>
+    }
+    @if (!string.IsNullOrWhiteSpace(Model.PropertyName))
+    {
+        <span class="badge bg-secondary">Nome do estabelecimento: @Model.PropertyName</span>
+    }
+</div>
+
+
+
+
+@if (Model.Resultados.Any())
+{
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Nome do Estabelecimento</th>
+                <th>Cidade</th>
+                <th>Valor da Diária</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.Resultados)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td>@item.City?.Name</td>
+                    <td>@item.PricePerNight.ToString("C")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p class="text-muted">Nenhum registro encontrado para os filtros informados.</p>
+}
